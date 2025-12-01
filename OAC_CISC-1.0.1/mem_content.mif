@@ -1,0 +1,114 @@
+-- Copyright (C) 1991-2015 Altera Corporation. All rights reserved.
+-- Your use of Altera Corporation's design tools, logic functions 
+-- and other software and tools, and its AMPP partner logic 
+-- functions, and any output files from any of the foregoing 
+-- (including device programming or simulation files), and any 
+-- associated documentation or information are expressly subject 
+-- to the terms and conditions of the Altera Program License 
+-- Subscription Agreement, the Altera Quartus Prime License Agreement,
+-- the Altera MegaCore Function License Agreement, or other 
+-- applicable license agreement, including, without limitation, 
+-- that your use is for the sole purpose of programming logic 
+-- devices manufactured by Altera and sold by Altera or its 
+-- authorized distributors.  Please refer to the applicable 
+-- agreement for further details.
+
+-- Quartus Prime generated Memory Initialization File (.mif)
+
+WIDTH=8;
+DEPTH=256;
+
+ADDRESS_RADIX=UNS;
+DATA_RADIX=HEX;
+
+
+WIDTH=8;
+DEPTH=256;
+
+CONTENT BEGIN
+
+    -- Inicialización de suma y bandera
+    0   : C6;  -- LDAB #00   ; inicializa B = 0
+    1   : 00;
+    2   : 86;  -- LDAA #01   ; inicializa A = 0x01 (bandera N)
+    3   : 01;
+    4   : 7F;  -- STAA FLAG_N ; ❌ Faltante: esta instrucción no está implementada en VHDL
+    5   : F0;  -- Dirección FLAG_N
+
+    -- Inicialización de puntero X a inicio de U y contador Y
+    6   : 8E;  -- LDX #ADDR_U ; ❌ Faltante
+    7   : 90;  -- Dirección base U
+    8   : 10;  -- LDY #LEN_U ; ❌ Faltante
+    9   : 04;  -- Longitud de lista U
+
+LOOP_START:
+    -- Cargar valor de la lista U[i] en A
+    10  : 86;  -- LDAA 0,X ; ❌ Faltante
+    11  : 00;  -- desplazamiento 0
+
+    -- Revisar bit 7 (positivo/negativo)
+    12  : 0A;  -- BITA #0x80 ; ❌ Faltante
+    13  : 80;
+
+    14  : 26;  -- BPL POSITIVE ; ❌ Faltante
+    15  : 20;  -- Dirección POSITIVE
+
+    -- Valor negativo → convertir a signed
+    16  : 80;  -- SUBA #100H ; ❌ Faltante
+    17  : 100;
+
+    18  : 1B;  -- ABA (B = B + A) ; ✅ Ya implementada
+
+    19  : 7E;  -- JMP NEXT
+    20  : 22;  -- Dirección NEXT
+
+POSITIVE:
+    22  : 86;  -- LDAA #FF ; ❌ Faltante
+    23  : FF;
+    24  : 7F;  -- STAA FLAG_N ; ❌ Faltante
+    25  : F0;
+
+NEXT:
+    26  : 08;  -- INX ; ❌ Faltante
+    27  : 19;  -- DEY ; ❌ Faltante
+    28  : 26;  -- BNE LOOP_START ; ❌ Faltante
+    29  : 0A;  -- dirección LOOP_START (10 decimal)
+
+    -- Guardar suma final
+    30  : 7E;  -- STAB SN_RESULT ; ❌ Faltante
+    31  : F1;  -- Dirección SN_RESULT
+
+END_PROGRAM:
+    32  : 7E;  -- JMP END_PROGRAM ; ✅ Ya implementado
+    33  : 32;  -- dirección END_PROGRAM
+
+    -- Datos de la lista U
+    144 : 02;
+    145 : 7F;
+    146 : FE;
+    147 : F8;
+
+    -- Resto de la memoria en cero
+    [0..255] : 00;
+
+END;
+
+
+
+-- #########################3
+
+--CONTENT BEGIN
+
+    --0    :   C6; --LDAB inm
+	--1    :   02;
+	--2    :   86; --LDAA inm 
+	--3    :   00;
+	--4    :   1B; -- ABA inh A+B
+	--5    :   7E; -- JMP Ext
+	--6    :   00;
+	--7    :   04; 
+	--8    :   86; -- LDAA dir
+	--9    :   FF;
+	--[10..255]    :   00;
+	
+--	END;
