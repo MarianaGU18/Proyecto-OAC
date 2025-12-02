@@ -15,12 +15,6 @@
 
 -- Quartus Prime generated Memory Initialization File (.mif)
 
-WIDTH=8;
-DEPTH=256;
-
-ADDRESS_RADIX=UNS;
-DATA_RADIX=HEX;
-
 
 WIDTH=8;
 DEPTH=256;
@@ -43,7 +37,7 @@ CONTENT BEGIN
 
 LOOP_START:
     -- Cargar valor de la lista U[i] en A
-    10  : 86;  -- LDAA 0,X ; ❌ Faltante
+    10  : 86;  -- LDAA 0,X ; 
     11  : 00;  -- desplazamiento 0
 
     -- Revisar bit 7 (positivo/negativo)
@@ -63,7 +57,7 @@ LOOP_START:
     20  : 22;  -- Dirección NEXT
 
 POSITIVE:
-    22  : 86;  -- LDAA #FF ; ❌ Faltante
+    22  : 86;  -- LDAA #FF ; 
     23  : FF;
     24  : 7F;  -- STAA FLAG_N ; ❌ Faltante
     25  : F0;
