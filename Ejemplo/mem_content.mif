@@ -1,0 +1,21 @@
+WIDTH=8;
+DEPTH=256;
+
+ADDRESS_RADIX=UNS;
+DATA_RADIX=HEX;
+
+CONTENT BEGIN
+
+    0    :   C6; --LDAB inm
+	1    :   02;
+	2    :   86; --LDAA inm 
+	3    :   00;
+	4    :   1B; -- ABA inh A+B
+	5    :   7E; -- JMP Ext
+	6    :   00;
+	7    :   04; 
+	8    :   96; -- LDAA dir
+	9    :   FF;
+	[10..255]    :   00;
+	
+	END;
